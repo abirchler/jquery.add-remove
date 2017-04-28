@@ -3,6 +3,9 @@ jQuery plugin for dynamically adding and removing "rows" to an element.
 
 **This project is under development and is not at a stable point.**
 
+## Demo ##
+https://aaronbirchler.com/jquery.add-remove/test.html
+
 ## To Do ##
 - [ ] Add option to remove template
 - [ ] Add option to use template from not within the container

@@ -6,8 +6,11 @@
       addButton: ".add-button",
       removeButton: ".remove-button",
       container: "> *:first",
-      template: "> *:first > *:first",
-      removeTemplate: false
+      template: "> *:first > *:last",
+      removeTemplate: false,
+      maxRows: null,
+      minRows: 0,
+      blankPlaceholder: null
     }, options);
 
     function initializeRow(row){
