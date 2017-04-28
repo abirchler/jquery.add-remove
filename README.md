@@ -30,10 +30,10 @@ This project is under development and is not at a stable point.
 </form>
 ```
 
-###JavScript ###
+### JavScript ###
 ```javascript
-      jQuery(function($){
-        $("#container").addRemove();
-      });
+jQuery(function($){
+  $("#container").addRemove();
+});
 ```
 
