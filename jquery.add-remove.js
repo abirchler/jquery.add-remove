@@ -6,8 +6,16 @@
       addButton: ".add-button",
       removeButton: ".remove-button",
       container: "> *:first",
-      template: "> *:first > *:first"
+      template: "> *:first > *:first",
+      removeTemplate: false
     }, options);
+
+    function initializeRow(row){
+      var removeButton = row.find(settings.removeButton);
+      removeButton.click(function(){
+        row.remove();
+      });
+    }
 
     return this.each(function(){
 
@@ -15,19 +23,20 @@
       var container = element.find(settings.container);
       var template = element.find(settings.template);
 
-      template = template.clone();
+      if ( settings.removeTemplate ){
+        template.remove();
+      }
 
-      console.log(container);
-      console.log(template);
+      container.find("> *").each(function(){
+        var row = $(this);
+        initializeRow(row);
+      });
+
+      template = template.clone();
 
       element.find(settings.addButton).on("click", function(){
         var row = template.clone();
-        var removeButton = row.find(settings.removeButton);
-        console.log("Remove button:");
-        console.log(removeButton);
-        removeButton.click(function(){
-          row.remove();
-        });
+        initializeRow(row);
         row.appendTo(container);
       });
     });

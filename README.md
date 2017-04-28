@@ -14,6 +14,7 @@ jQuery plugin for dynamically adding and removing "rows" to an element.
 - [ ] Handle ids to avoid duplicates
 - [ ] Add hooks & callbacks
 - [ ] Add ability to confirm removal
+- [ ] Handle "no rows" situation
 
 ## Example Usage ##
 
