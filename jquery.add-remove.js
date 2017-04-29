@@ -20,6 +20,7 @@
       container:      "> *:not(:button):first",
       template:       "> *:not(:button):first > *:last",
       removeTemplate: false,
+      placehoolder:   null,
       maxRows:        null,
       minRows:        0,
       modifyId:       function(oldId, rowNumber){
@@ -86,7 +87,6 @@
 
         element.attr("for", newId);
       });
-
     }
 
     function initializeRow(row){
@@ -121,7 +121,14 @@
 
       var element   = $(this),
           container = element.find(settings.container),
-          template  = element.find(settings.template);
+          template  = element.find(settings.template),
+          placeholder = settings.placeholder ? $(settings.placeholder) : null;
+
+      container.on("add_remove:remove", function(evt){
+        if ( settings.placeholder && ! container.children(":add_remove_row").length ){
+          container.append(placeholder);
+        }
+      });
 
       container.data("add-remove-container", true);
 
@@ -158,9 +165,11 @@
 
       template = template.clone();
 
-      element.find(settings.addButton).on("click", function(){
+      element.on("click", settings.addButton, function(){
 
         var row = template.clone();
+
+        if ( placeholder ) placeholder.remove();
 
         addRow(row);
       });

@@ -12,54 +12,7 @@
       src="jquery.add-remove.js"
       type="text/javascript"
     ></script>
-    <script type="text/javascript">
-
-      jQuery(function($){
-
-        function flashClass(element, className){
-
-          var t = $(element);
-
-          t.addClass(className);
-
-          setTimeout(function(){
-            t.removeClass(className);
-          }, 500);
-
-        }
-
-        $("#container").addRemove({});
-
-        $("#table-form").addRemove({
-          container: "tbody",
-          template: "tbody tr:last"
-        });
-
-        $("#row-sel-test").click(function(){
-
-          $(":add_remove_row").addClass("highlight");
-          setTimeout(function(){
-            $(":add_remove_row").removeClass("highlight");
-          }, 3000);
-        });
-
-        $(document).on("add_remove:add", function(evt){
-          flashClass(evt.target, "added")
-        })
-        .on("add_remove:remove", function(evt, data){
-
-          console.log("Row removed: ");
-          console.log(data.element);
-
-          flashClass(evt.target, "removed");
-        })
-        .on("add_remove:renumber", function(evt){
-          flashClass(evt.target, "renumber");
-        })
-        ;
-      });
-
-    </script>
+    <script type="text/javascript" src="test.js"></script>
   </head>
   <body>
     <h1>Test page for the jquery.add-remove plugin</h1>
