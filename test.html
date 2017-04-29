@@ -3,7 +3,7 @@
   <head>
     <title>jQuery.add-remove Test Page</title>
     <script
-      src="///code.jquery.com/jquery-3.2.1.js"
+      src="http://code.jquery.com/jquery-3.2.1.js"
       type="text/javascript"
       integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
       crossorigin="anonymous"></script>
@@ -15,9 +15,7 @@
 
       jQuery(function($){
 
-        $("#container").addRemove({
-          removeTemplate: true
-        });
+        $("#container").addRemove({});
 
         $("#table-form").addRemove({
           container: "tbody",
@@ -30,6 +28,16 @@
     body {
       font-family: sans-serif;
       margin: 6em;
+    }
+    table {
+      border-collapse: collapse;
+      border: 1px solid #CCC;
+    }
+    th, td {
+      padding: .25em .5em;
+    }
+    th {
+      background-color: #EEE;
     }
   </style>
   </head>
@@ -66,8 +74,8 @@
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
+              <th>Field 1</th>
+              <th>Field 2</th>
               <th>
                 <button type="button" class="add-button">+</button>
               </th>
@@ -76,10 +84,10 @@
           <tbody>
             <tr>
               <td>
-                <input type="text" id="text-0" name="name[0]"/>
+                <input type="text" id="field_1-0" name="field_1[0]"/>
               </td>
               <td>
-                <input type="email" id="email-0" name="email[0]"/>
+                <input type="email" id="field_2-0" name="field_2[0]"/>
               </td>
               <td>
                 <button type="button" class="remove-button">-</button>
