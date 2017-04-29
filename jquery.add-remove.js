@@ -24,6 +24,7 @@
       maxRows:        null,
       minRows:        0,
       autoFocus:      false,
+      clearValues:    true,
       modifyId:       function(oldId, rowNumber){
 
         if ( oldId ) {
@@ -136,6 +137,10 @@
       function addRow(row){
 
         initializeRow(row);
+
+        if (settings.clearValues){
+          row.find("input").val("");
+        }
 
         row.appendTo(container);
 

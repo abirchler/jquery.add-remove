@@ -28,6 +28,7 @@ https://aaronbirchler.com/jquery.add-remove/test.html
 * modifyId: Function used to modify the ids of elements. Passed the old id and the row number
 * modifyName: Function used to modify the names of elements. Passed the old name and row number
 * autoFocus: Put focus on first input of newly added row
+* clearValues: Clears the values from input elements when adding a new row
 
 ## Example Usage ##
 
