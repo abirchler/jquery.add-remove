@@ -23,6 +23,7 @@
       placehoolder:   null,
       maxRows:        null,
       minRows:        0,
+      autoFocus:      false,
       modifyId:       function(oldId, rowNumber){
 
         if ( oldId ) {
@@ -146,6 +147,11 @@
 
           modifyName(row, rowIndex);
           modifyId(row, rowIndex);
+
+          if (settings.autoFocus) {
+
+            row.find(":input:first").focus();
+          }
 
           row.trigger("add_remove:renumber");
         });

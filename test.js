@@ -38,7 +38,8 @@ jQuery(function($){
 
   $("#table-form").addRemove({
     container: "tbody",
-    template: "tbody tr:last"
+    template: "tbody tr:last",
+    autoFocus: true
   });
 
 });
