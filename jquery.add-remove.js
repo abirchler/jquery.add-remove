@@ -6,6 +6,9 @@
   $.extend($.expr[":"], {
     add_remove_row: function(el){
       return $(el).data("add-remove-row") ? true : false;
+    },
+    add_remove_container: function(el){
+      return $(el).data("add-remove-container") ? true : false;
     }
   });
 
@@ -94,27 +97,43 @@
 
       removeButton.click(function(){
 
+        console.log("This is where we should rename things");
+
+        var sibs = row.siblings(":add_remove_row");
+
         row.remove();
+
+        sibs.each(function(rowIndex){
+
+          var row = $(this);
+
+          modifyName(row, rowIndex);
+          modifyId(row, rowIndex);
+        });
       });
     }
 
     return this.each(function(){
 
       var element   = $(this),
-          rowIndex  = 0,
           container = element.find(settings.container),
           template  = element.find(settings.template);
+
+      container.data("add-remove-container", true);
 
       function addRow(row){
 
         initializeRow(row);
 
-        modifyName(row, rowIndex);
-        modifyId(row, rowIndex);
-
-        rowIndex++;
-
         row.appendTo(container);
+
+        container.find(":add_remove_row").each(function(rowIndex){
+
+          var row = $(this);
+
+          modifyName(row, rowIndex);
+          modifyId(row, rowIndex);
+        });
       }
 
       if ( settings.removeTemplate ){
