@@ -16,6 +16,18 @@
 
       jQuery(function($){
 
+        function flashClass(element, className){
+
+          var t = $(element);
+
+          t.addClass(className);
+
+          setTimeout(function(){
+            t.removeClass(className);
+          }, 500);
+
+        }
+
         $("#container").addRemove({});
 
         $("#table-form").addRemove({
@@ -30,7 +42,23 @@
             $(":add_remove_row").removeClass("highlight");
           }, 3000);
         });
+
+        $(document).on("add_remove:add", function(evt){
+          flashClass(evt.target, "added")
+        })
+        .on("add_remove:remove", function(evt, data){
+
+          console.log("Row removed: ");
+          console.log(data.element);
+
+          flashClass(evt.target, "removed");
+        })
+        .on("add_remove:renumber", function(evt){
+          flashClass(evt.target, "renumber");
+        })
+        ;
       });
+
     </script>
   </head>
   <body>
@@ -42,7 +70,7 @@
 
         <button type="button" class="add-button">+</button>
 
-        <ul>
+        <ul class="container">
           <li class="row">
 
             <span>
@@ -75,7 +103,7 @@
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="container">
             <tr class="row">
               <td>
                 <input type="text" id="field_1-0" name="field_1[0]"/>

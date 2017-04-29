@@ -32,3 +32,25 @@ thead, tfoot {
   border: 1px solid #CCC;
   padding: 3em;
 }
+
+.added {
+  background-color: yellow;
+}
+button {
+  font-weight: bold;
+  background-color: #FFF;
+  padding: .25em .75em;
+  border: 1px solid #999;
+  border-radius: .25em;
+}
+
+.container {
+  transition: background .3s;
+}
+.removed {
+  background-color: #FEE;
+}
+.renumber button {
+  background-color: green;
+  color: white;
+}

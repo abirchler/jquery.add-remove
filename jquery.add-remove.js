@@ -97,11 +97,13 @@
 
       removeButton.click(function(){
 
-        console.log("This is where we should rename things");
-
         var sibs = row.siblings(":add_remove_row");
 
+        var p = row.parent();
+
         row.remove();
+
+        p.trigger("add_remove:remove", {element:row[0]});
 
         sibs.each(function(rowIndex){
 
@@ -109,6 +111,8 @@
 
           modifyName(row, rowIndex);
           modifyId(row, rowIndex);
+
+          row.trigger("add_remove:renumber");
         });
       });
     }
@@ -127,12 +131,16 @@
 
         row.appendTo(container);
 
+        row.trigger("add_remove:add");
+
         container.find(":add_remove_row").each(function(rowIndex){
 
           var row = $(this);
 
           modifyName(row, rowIndex);
           modifyId(row, rowIndex);
+
+          row.trigger("add_remove:renumber");
         });
       }
 
