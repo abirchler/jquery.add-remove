@@ -12,3 +12,9 @@ th, td {
 th {
   background-color: #EEE;
 }
+.row {
+  transition: background .3s;
+}
+.highlight {
+  background-color: yellow;
+}

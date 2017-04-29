@@ -5,7 +5,7 @@
    */
   $.extend($.expr[":"], {
     add_remove_row: function(el){
-      return el.data("add-remove-row") ? true : false;
+      return $(el).data("add-remove-row") ? true : false;
     }
   });
 
