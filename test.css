@@ -9,7 +9,7 @@ table {
 th, td {
   padding: .25em .5em;
 }
-th {
+thead, tfoot {
   background-color: #EEE;
 }
 .row {
@@ -17,4 +17,18 @@ th {
 }
 .highlight {
   background-color: yellow;
+}
+#container ul {
+  list-style-type: none;
+  padding: 1em 0;
+  margin: 0;
+}
+#container li {
+  margin: 0;
+  padding .25em .5em;
+}
+.add-remove {
+  margin-bottom: 3em;
+  border: 1px solid #CCC;
+  padding: 3em;
 }

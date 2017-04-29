@@ -36,11 +36,11 @@
   <body>
     <h1>Test page for the jquery.add-remove plugin</h1>
 
-    <form>
+    <form class="add-remove">
 
       <div id="container">
 
-        <button type="button" class="add-button">Add</button>
+        <button type="button" class="add-button">+</button>
 
         <ul>
           <li class="row">
@@ -50,16 +50,18 @@
               <input type="text" id="test-field-1" name="test_field[1]"/>
             </span>
 
-            <button class="remove-button" type="button">Remove</button>
+            <button class="remove-button" type="button">-</button>
 
           </li>
         </ul>
+
+        <button type="button" class="add-button">+</button>
 
       </div>
 
     </form>
 
-    <form>
+    <form class="add-remove">
 
       <div id="table-form">
 
@@ -86,6 +88,14 @@
               </td>
             </tr>
           </tbody>
+          <thead>
+            <tr>
+              <td colspan="2"></td>
+              <td>
+                <button type="button" class="add-button">+</button>
+              </td>
+            </tr>
+          </thead>
         </table>
 
       </div>
