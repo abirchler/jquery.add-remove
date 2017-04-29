@@ -19,7 +19,11 @@
 
     <form class="add-remove">
 
-      <div id="container">
+      <pre>$("#container").addRemove({
+  placeholder: '&lt;li&gt;Your list is empty&lt;br/&gt;&lt;button type="button" style="font-size:larger;" class="add-button"&gt;Add an item&lt;/button&gt;&lt;/li&gt;'
+});</pre>
+
+      <div id="container" class="widget">
 
         <button type="button" class="add-button">+</button>
 
@@ -44,7 +48,16 @@
 
     <form class="add-remove">
 
-      <div id="table-form">
+    <pre>$("#table-form").addRemove({
+  container: "tbody",
+  template: "tbody tr:last",
+  autoFocus: true,
+  minRows: 2,
+  maxRows: 7
+});</pre>
+
+
+      <div id="table-form" class="widget">
 
         <table>
           <thead>

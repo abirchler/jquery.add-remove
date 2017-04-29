@@ -91,39 +91,13 @@
       });
     }
 
-    function initializeRow(row){
-
-      row.data("add-remove-row", true);
-
-      var removeButton = row.find(settings.removeButton);
-
-      removeButton.click(function(){
-
-        var sibs = row.siblings(":add_remove_row");
-
-        var p = row.parent();
-
-        row.remove();
-
-        p.trigger("add_remove:remove", {element:row[0]});
-
-        sibs.each(function(rowIndex){
-
-          var row = $(this);
-
-          modifyName(row, rowIndex);
-          modifyId(row, rowIndex);
-
-          row.trigger("add_remove:renumber");
-        });
-      });
-    }
 
     return this.each(function(){
 
       var element   = $(this),
           container = element.find(settings.container),
           template  = element.find(settings.template),
+          isInitialized = false,
           placeholder = settings.placeholder ? $(settings.placeholder) : null;
 
       container.on("add_remove:remove", function(evt){
@@ -134,6 +108,86 @@
 
       container.data("add-remove-container", true);
 
+      function updateMinMax(oldVal){
+
+        var numRows = container.find(":add_remove_row").length;
+
+        if ( settings.maxRows ){
+
+          if ( settings.maxRows > numRows){
+
+            element.find(settings.addButton).removeAttr("disabled");
+
+            if ( typeof oldVal !== "undefined" && settings.maxRows <= oldVal){
+              element.trigger("add_remove:max_clear");
+            }
+          }
+          else {
+
+            element.find(settings.addButton).attr("disabled", "disabled");
+
+            if ( typeof oldVal !== "undefined" && settings.maxRows > oldVal){
+              element.trigger("add_remove:max");
+            }
+
+          }
+        }
+
+        if ( typeof settings.minRows !== "undefined" ){
+
+          if ( settings.minRows < numRows){
+
+            container.find(settings.removeButton).removeAttr("disabled");
+
+            if ( typeof oldVal !== "undefined" && settings.minRows >= oldVal){
+              element.trigger("add_remove:min_clear");
+            }
+          }
+          else {
+
+            container.find(settings.removeButton).attr("disabled", "disabled");
+
+            if ( typeof oldVal !== "undefined" && settings.minRows < oldVal){
+              element.trigger("add_remove:min");
+            }
+          }
+        }
+      }
+
+      function initializeRow(row){
+
+        row.data("add-remove-row", true);
+
+        var removeButton = row.find(settings.removeButton);
+
+        removeButton.click(function(){
+
+          var sibs = row.siblings(":add_remove_row");
+
+          var p = row.parent();
+
+          row.remove();
+
+          updateMinMax(sibs.length + 1);
+
+          p.trigger("add_remove:remove", {element:row[0]});
+
+          sibs.each(function(rowIndex){
+
+            var row = $(this);
+
+            modifyName(row, rowIndex);
+            modifyId(row, rowIndex);
+
+            row.trigger("add_remove:renumber");
+          });
+
+          if ( 0 === sibs.length ){
+            p.trigger("add_remove:empty");
+          }
+        });
+      }
+
       function addRow(row){
 
         initializeRow(row);
@@ -142,11 +196,17 @@
           row.find("input").val("");
         }
 
+        var rows = container.find(":add_remove_row")
+
         row.appendTo(container);
+
+        rows.add(row);
+
+        updateMinMax(rows.length);
 
         row.trigger("add_remove:add");
 
-        container.find(":add_remove_row").each(function(rowIndex){
+        rows.each(function(rowIndex){
 
           var row = $(this);
 
@@ -184,6 +244,10 @@
 
         addRow(row);
       });
+
+      updateMinMax();
+
+      isInitialized = true;
     });
   }
 }(jQuery));

@@ -1,6 +1,8 @@
 jQuery(function($){
 
-  function flashClass(element, className){
+  function flashClass(element, className, duration){
+
+    if ( ! duration ) duration = 500;
 
     var t = $(element);
 
@@ -8,8 +10,7 @@ jQuery(function($){
 
     setTimeout(function(){
       t.removeClass(className);
-    }, 500);
-
+    }, duration);
   }
 
   $("#row-sel-test").click(function(){
@@ -39,7 +40,24 @@ jQuery(function($){
   $("#table-form").addRemove({
     container: "tbody",
     template: "tbody tr:last",
-    autoFocus: true
+    autoFocus: true,
+    minRows: 2,
+    maxRows: 7
+  });
+
+  $("#l2").addRemove();;
+
+  $(document).on("add_remove:max", function(evt){
+    flashClass(evt.target, "maxed", 2000);
+  });
+  $(document).on("add_remove:min", function(evt){
+    flashClass(evt.target, "maxed", 2000);
+  });
+  $(document).on("add_remove:max_clear", function(evt){
+    flashClass(evt.target, "avail", 1000);
+  });
+  $(document).on("add_remove:min_clear", function(evt){
+    flashClass(evt.target, "avail", 1000);
   });
 
 });

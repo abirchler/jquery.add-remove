@@ -28,9 +28,25 @@ thead, tfoot {
   padding .25em .5em;
 }
 .add-remove {
-  margin-bottom: 3em;
   border: 1px solid #CCC;
   padding: 3em;
+  margin: 0 3em;
+}
+.widget {
+
+  transition: border .3s;
+  border-left: .5em solid #CCC;
+  padding-left: 1em;
+}
+
+.maxed {
+  border-color: red;
+}
+.mined {
+  border-color: red;
+}
+.avail {
+  border-color: green;
 }
 
 .added {
@@ -43,6 +59,11 @@ button {
   border: 1px solid #999;
   border-radius: .25em;
 }
+button:disabled {
+  border-color: #DDD;
+  color: #CCC;
+  background-color: #FEFEFE;
+}
 
 .container {
   transition: background .3s;
@@ -53,4 +74,11 @@ button {
 .renumber button {
   background-color: green;
   color: white;
+}
+pre {
+  background-color: #FCFCFC;
+  border: 1px solid #CCC;
+  padding: 1em;
+  margin: 1em 0;
+  overflow: auto;
 }
