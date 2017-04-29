@@ -7,17 +7,26 @@ jQuery plugin for dynamically adding and removing "rows" to an element.
 https://aaronbirchler.com/jquery.add-remove/test.html
 
 ## To Do ##
-- [ ] Add option to remove template
+- [x] Add option to remove template
 - [ ] Add option to use template from not within the container
 - [ ] Add option to add add & remove buttons
 - [ ] Add min-rows option
 - [ ] Add max-rows option
 - [ ] Handle nested instances
-- [ ] Handle renaming of input elements
-- [ ] Handle ids to avoid duplicates
-- [ ] Add hooks & callbacks
+- [x] Handle renaming of input elements
+- [x] Handle ids to avoid duplicates
+- [x] Add hooks & callbacks
 - [ ] Add ability to confirm removal
 - [ ] Handle "no rows" situation
+
+## Options ##
+* addButton: Selector used to find the add buttons
+* removeButton: Selector used to find the remove buttons
+* container: Selector used to find the container to which rows are added
+* template: Selector used to find the template which rows are cloned from
+* removeTemplate: Whether to remove the original template or not
+* modifyId: Function used to modify the ids of elements. Passed the old id and the row number
+* modifyName: Function used to modify the names of elements. Passed the old name and row number
 
 ## Example Usage ##
 
