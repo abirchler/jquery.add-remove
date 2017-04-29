@@ -27,6 +27,7 @@ https://aaronbirchler.com/jquery.add-remove/test.html
 * removeTemplate: Whether to remove the original template or not
 * modifyId: Function used to modify the ids of elements. Passed the old id and the row number
 * modifyName: Function used to modify the names of elements. Passed the old name and row number
+* autoFocus: Put focus on first input of newly added row
 
 ## Example Usage ##
 
