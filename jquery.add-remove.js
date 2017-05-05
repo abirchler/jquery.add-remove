@@ -12,90 +12,25 @@
     }
   });
 
-  $.fn.addRemove = function(options){
+  $.fn.addRemove = function(p1, p2){
 
-    var settings = $.extend({
-      addButton:      ".add-button",
-      removeButton:   ".remove-button",
-      container:      "> *:not(:button):first",
-      template:       "> *:not(:button):first > *:last",
-      removeTemplate: false,
-      placehoolder:   null,
-      maxRows:        null,
-      minRows:        0,
-      autoFocus:      false,
-      clearValues:    true,
-      modifyId:       function(oldId, rowNumber){
+    var action = "init",
+        options = p1;
 
-        if ( oldId ) {
-
-          var newId = oldId.replace(/(-|_)\d+$/, "$1" + rowNumber)
-        }
-        else {
-
-          newId = null;
-        }
-
-        return newId;
-      },
-      modifyName:     function(name, rowNumber){
-
-        if ( name ) {
-
-          var newName = name.replace(/\[[^\]]\]$/, "[" + rowNumber + "]");
-        }
-        else {
-          newName = null;
-        }
-
-        return newName;
-      }
-    }, options);
-
-    /**
-     * Modifies the name of a row so it matches the row index
-     */
-    function modifyName(row, rowNumber) {
-
-      row.find(":input").each(function(){
-
-        var input   = $(this),
-            oldName = input.attr("name");
-
-        var newName = settings.modifyName(oldName, rowNumber);
-
-        input.attr("name", newName);
-      });
+    if ( typeof p1 === "string" ) {
+      action = p1;
+      options = p2;
     }
-
-    function modifyId(row, rowNumber) {
-
-      row.find("[id]").each(function(){
-
-        var element  = $(this),
-            oldId     = element.attr("id");
-
-        var newId = settings.modifyId(oldId, rowNumber);
-
-        element.attr("id", newId);
-      });
-
-      row.find("label[for]").each(function(){
-
-        var element  = $(this),
-            oldId     = element.attr("for");
-
-        var newId = settings.modifyId(oldId, rowNumber);
-
-        element.attr("for", newId);
-      });
-    }
-
 
     return this.each(function(){
 
-      var element   = $(this),
-          container = element.find(settings.container),
+      var element   = $(this);
+
+      $.fn.addRemove.options.call(element, options);
+
+      var settings = $.fn.addRemove.options.call(element);
+
+      var container = element.find(settings.container),
           template  = element.find(settings.template),
           isInitialized = false,
           placeholder = settings.placeholder ? $(settings.placeholder) : null;
@@ -176,8 +111,8 @@
 
             var row = $(this);
 
-            modifyName(row, rowIndex);
-            modifyId(row, rowIndex);
+            $.fn.addRemove.modifyName(row, rowIndex);
+            $.fn.addRemove.modifyId(row, rowIndex);
 
             row.trigger("add_remove:renumber");
           });
@@ -249,5 +184,106 @@
 
       isInitialized = true;
     });
+  };
+
+  $.fn.addRemove.defaults = {
+
+    addButton:      ".add-button",
+    removeButton:   ".remove-button",
+    container:      "> *:not(:button):first",
+    template:       "> *:not(:button):first > *:last",
+    removeTemplate: false,
+    placehoolder:   null,
+    maxRows:        null,
+    minRows:        0,
+    autoFocus:      false,
+    clearValues:    true,
+    modifyId:       function(oldId, rowNumber){
+
+      if ( oldId ) {
+
+        var newId = oldId.replace(/(-|_)\d+$/, "$1" + rowNumber)
+      }
+      else {
+
+        newId = null;
+      }
+
+      return newId;
+    },
+    modifyName:     function(name, rowNumber){
+
+      if ( name ) {
+
+        var newName = name.replace(/\[[^\]]\]$/, "[" + rowNumber + "]");
+      }
+      else {
+        newName = null;
+      }
+
+      return newName;
+    }
+  };
+
+  $.fn.addRemove.options = function(options){
+
+    console.log(this);
+
+    var data = this.data("addRemove");
+
+    if ( typeof data === "undefined" ) data = {};
+
+    var oldOptions = ( typeof data.options === "undefined" ) ? $.fn.addRemove.defaults : data.options;
+
+    if ( typeof options === "undefined" ){
+      return oldOptions;
+    }
+    else {
+      data.options = $.extend({}, oldOptions, options);
+      this.data("addRemove", data);
+    }
+  };
+
+  /**
+   * Modifies the name of a row so it matches the row index
+   */
+  $.fn.addRemove.modifyName = function(row, rowNumber) {
+
+    row.find(":input").each(function(){
+
+      var input   = $(this),
+          oldName = input.attr("name");
+
+      var newName = settings.modifyName(oldName, rowNumber);
+
+      input.attr("name", newName);
+    });
   }
+
+  /**
+   * Modifies the id of a row so that it matches the row index
+   */
+  $.fn.addRemove.modifyId = function(row, rowNumber) {
+
+    row.find("[id]").each(function(){
+
+      var element  = $(this),
+          oldId     = element.attr("id");
+
+      var newId = settings.modifyId(oldId, rowNumber);
+
+      element.attr("id", newId);
+    });
+
+    row.find("label[for]").each(function(){
+
+      var element  = $(this),
+          oldId     = element.attr("for");
+
+      var newId = settings.modifyId(oldId, rowNumber);
+
+      element.attr("for", newId);
+    });
+  }
+
 }(jQuery));
