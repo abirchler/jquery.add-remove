@@ -178,7 +178,8 @@
       });
 
       if ( 0 === sibs.length ){
-        p.trigger("add_remove:empty");
+        console.log("Row should be removed here");
+        el.trigger("add_remove:empty");
       }
     });
   };
@@ -198,7 +199,7 @@
           isInitialized = false,
           placeholder = settings.placeholder ? $(settings.placeholder) : null;
 
-      container.on("add_remove:remove", function(evt){
+      arElement.on("add_remove:remove", function(evt){
         if ( settings.placeholder && ! container.children(":add_remove_row").length ){
           container.append(placeholder);
         }
@@ -221,9 +222,8 @@
       template = template.clone();
 
       var data = arElement.data("addRemove");
+      data.placeholder = placeholder;
       data.template = template;
-
-      if ( placeholder ) placeholder.remove();
 
       arElement.on("click", settings.addButton, function(){
 
@@ -296,6 +296,9 @@
 
       var data = el.data("addRemove");
       var template = data.template;
+      var placeholder = data.placeholder;
+
+      if ( placeholder ) placeholder.remove();
 
       var row = template.clone();
 
